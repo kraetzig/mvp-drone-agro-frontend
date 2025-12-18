@@ -9,16 +9,48 @@ function App() {
   const API_BASE = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch(`${API_BASE}`)
-      .then((res) => res.json())
+    // Buscar último NDVI
+    fetch(`${API_BASE}/latest`)
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then(setLatest)
       .catch(() => setError("Erro ao buscar último NDVI"));
 
+    // Buscar histórico NDVI
     fetch(`${API_BASE}/history`)
-      .then((res) => res.json())
-      .then(setHistory)
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then((data) => {
+        const sorted = data.sort(
+          (a, b) =>
+            new Date(b.processado_em || 0) -
+            new Date(a.processado_em || 0)
+        );
+        setHistory(sorted);
+      })
       .catch(() => setError("Erro ao buscar histórico"));
   }, [API_BASE]);
+
+  function formatDate(date) {
+    if (!date) return "-";
+    return new Date(date).toLocaleString("pt-BR");
+  }
+
+  function statusColor(status) {
+    if (!status) return "#999";
+
+    const s = status.toLowerCase();
+
+    if (s.includes("saudável")) return "#2ecc71";
+    if (s.includes("moderada")) return "#f1c40f";
+    if (s.includes("crítica")) return "#e74c3c";
+
+    return "#bdc3c7";
+  }
 
   return (
     <div className="container">
@@ -29,10 +61,31 @@ function App() {
       {latest && (
         <div className="card">
           <h2>Último processamento</h2>
-          <p><strong>Arquivo:</strong> {latest.arquivo}</p>
-          <p><strong>NDVI médio:</strong> {latest.ndvi_medio}</p>
-          <p><strong>Status:</strong> {latest.status}</p>
-          <p><strong>Processado em:</strong> {latest.processado_em}</p>
+
+          <p>
+            <strong>Arquivo:</strong> {latest.arquivo}
+          </p>
+
+          <p>
+            <strong>NDVI médio:</strong> {latest.ndvi_medio}
+          </p>
+
+          <p>
+            <strong>Status:</strong>{" "}
+            <span
+              style={{
+                color: statusColor(latest.status),
+                fontWeight: "bold",
+              }}
+            >
+              {latest.status}
+            </span>
+          </p>
+
+          <p>
+            <strong>Processado em:</strong>{" "}
+            {formatDate(latest.processado_em)}
+          </p>
         </div>
       )}
 
@@ -52,8 +105,15 @@ function App() {
             <tr key={index}>
               <td>{item.arquivo}</td>
               <td>{item.ndvi_medio}</td>
-              <td>{item.status}</td>
-              <td>{item.processado_em}</td>
+              <td
+                style={{
+                  color: statusColor(item.status),
+                  fontWeight: "bold",
+                }}
+              >
+                {item.status}
+              </td>
+              <td>{formatDate(item.processado_em)}</td>
             </tr>
           ))}
         </tbody>
