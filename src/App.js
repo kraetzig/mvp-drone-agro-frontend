@@ -1,66 +1,63 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [dados, setDados] = useState(null);
-  const [erro, setErro] = useState(null);
+  const [latest, setLatest] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [error, setError] = useState("");
 
-  // 🔴 IMPORTANTE: sua URL do S3
-  const URL_RESULTADO =
-    "https://mvp-drone-agro-processed.s3.us-east-1.amazonaws.com/input_teste-frontend_teste.txt_resultado.json";
+  const API_BASE = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch(URL_RESULTADO)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Erro ao buscar resultado NDVI");
-        }
-        return res.json();
-      })
-      .then((data) => setDados(data))
-      .catch((err) => setErro(err.message));
-  }, []);
+    fetch(`${API_BASE}`)
+      .then((res) => res.json())
+      .then(setLatest)
+      .catch(() => setError("Erro ao buscar último NDVI"));
+
+    fetch(`${API_BASE}/history`)
+      .then((res) => res.json())
+      .then(setHistory)
+      .catch(() => setError("Erro ao buscar histórico"));
+  }, [API_BASE]);
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
+    <div className="container">
       <h1>🌱 Dashboard NDVI - MVP Drone Agro</h1>
 
-      {erro && <p style={{ color: "red" }}>Erro: {erro}</p>}
+      {error && <p className="error">{error}</p>}
 
-      {!dados && !erro && <p>Carregando dados...</p>}
-
-      {dados && (
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "20px",
-            border: "1px solid #ccc",
-            borderRadius: "8px",
-            maxWidth: "500px",
-          }}
-        >
-          <p>
-            <strong>Arquivo:</strong> {dados.arquivo}
-          </p>
-          <p>
-            <strong>NDVI médio:</strong> {dados.ndvi_medio}
-          </p>
-          <p>
-            <strong>Status:</strong>{" "}
-            <span
-              style={{
-                color:
-                  dados.status === "Vegetação saudável" ? "green" : "orange",
-              }}
-            >
-              {dados.status}
-            </span>
-          </p>
-          <p>
-            <strong>Processado em:</strong> {dados.processado_em}
-          </p>
+      {latest && (
+        <div className="card">
+          <h2>Último processamento</h2>
+          <p><strong>Arquivo:</strong> {latest.arquivo}</p>
+          <p><strong>NDVI médio:</strong> {latest.ndvi_medio}</p>
+          <p><strong>Status:</strong> {latest.status}</p>
+          <p><strong>Processado em:</strong> {latest.processado_em}</p>
         </div>
       )}
+
+      <h2>📜 Histórico de Processamentos</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Arquivo</th>
+            <th>NDVI</th>
+            <th>Status</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          {history.map((item, index) => (
+            <tr key={index}>
+              <td>{item.arquivo}</td>
+              <td>{item.ndvi_medio}</td>
+              <td>{item.status}</td>
+              <td>{item.processado_em}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
