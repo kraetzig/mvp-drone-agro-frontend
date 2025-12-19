@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+# 🌱 MVP Drone Agro – NDVI com AWS (Serverless)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é um **MVP (Minimum Viable Product)** que simula o uso de **drones no agronegócio** para análise da saúde da vegetação utilizando o índice **NDVI (Normalized Difference Vegetation Index)**, com uma **arquitetura totalmente serverless na AWS**.
 
-## Available Scripts
+O objetivo é demonstrar como dados geoespaciais podem ser processados, armazenados e visualizados de forma escalável, segura e com baixo custo.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🎯 Visão de Negócio
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+No agronegócio, decisões rápidas e baseadas em dados reduzem perdas e aumentam a produtividade.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Com este MVP é possível:
+- Identificar áreas com **estresse vegetal**
+- Priorizar ações no campo
+- Validar uma solução antes de investir em hardware (drones reais)
 
-### `npm test`
+Este projeto valida o conceito técnico e de negócio antes da escalabilidade.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛰️ Conceito do MVP
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Simulação de imagens capturadas por drones usando **Google Earth**
+- Processamento de NDVI
+- Classificação automática da vegetação:
+  - 🌿 Vegetação saudável
+  - ⚠️ Vegetação moderada
+  - 🚨 Vegetação crítica
+- Armazenamento dos resultados na nuvem
+- Exposição dos dados via API
+- Visualização em um dashboard web
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🏗️ Arquitetura AWS
 
-### `npm run eject`
+### 🔹 Amazon S3
+- Armazenamento dos arquivos processados
+- Organização em camadas (raw / processed)
+- Alta durabilidade e baixo custo
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🔹 AWS Lambda
+- Funções serverless para:
+  - Processamento NDVI
+  - Consulta do último resultado
+  - Histórico de processamentos
+- Execução sob demanda
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🔹 Amazon API Gateway
+- Exposição de endpoints REST:
+  - `/latest` → Último NDVI processado
+  - `/history` → Histórico de análises
+- Integração direta com Lambda
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🔹 AWS Amplify
+- Hospedagem do frontend React
+- Deploy contínuo via GitHub
+- HTTPS automático
+- Variáveis de ambiente para API
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🖥️ Frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Desenvolvido em **React**
+- Dashboard com:
+  - Último processamento NDVI
+  - Histórico de análises
+- Interface simples, clara e focada em dados
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 📊 Funcionalidades
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+✔ Processamento automático de NDVI  
+✔ Classificação da vegetação  
+✔ Histórico de análises  
+✔ Dashboard público  
+✔ Arquitetura serverless e escalável  
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔮 Próximas Evoluções
 
-### Making a Progressive Web App
+- Gráficos de evolução do NDVI
+- Alertas automáticos
+- Integração com Machine Learning
+- Conexão com drones reais
+- Autenticação de usuários
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🧠 Aprendizados
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Uso prático de arquitetura serverless
+- Integração entre serviços AWS
+- Construção de MVP com foco em valor
+- Cloud aplicada ao agronegócio
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🧪 Tecnologias Utilizadas
 
-### `npm run build` fails to minify
+- AWS Lambda
+- Amazon S3
+- Amazon API Gateway
+- AWS Amplify
+- React
+- JavaScript
+- Python
+- Google Earth (simulação de imagens)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 📌 Status do Projeto
+
+🚀 **MVP funcional e publicado**
+
+---
+
+## 📄 Licença
+
+Este projeto é apenas para fins educacionais e demonstração técnica.
