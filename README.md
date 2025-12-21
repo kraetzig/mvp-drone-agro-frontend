@@ -60,7 +60,7 @@ Exposição dos endpoints REST consumidos pelo frontend
 🖥️ AWS Amplify + React
 Frontend, CI/CD automático e hospedagem com HTTPS
 
-🌍 Amazon Route 53 + ACM
+🌍 Amazon Route 53 + AWS Certificate Manager (ACM)
 Gerenciamento de DNS e certificado SSL
 
 📊 Resultado Entregue
@@ -89,12 +89,21 @@ Gerenciamento de DNS e certificado SSL
 🧠 Análises preditivas com Machine Learning
 
 🧑‍💻 Tecnologias Utilizadas
+🔹 Linguagens
+
+JavaScript – Desenvolvimento do frontend
+
+Python – Processamento NDVI e backend serverless
+
+🔹 Frontend
 
 React
 
 Chart.js
 
-AWS Amplify
+AWS Amplify (CI/CD e hosting)
+
+🔹 Backend & Cloud (AWS)
 
 AWS Lambda
 
@@ -106,10 +115,14 @@ Amazon Route 53
 
 AWS Certificate Manager (ACM)
 
-📌 Conceito-chave
+🔹 Fonte de Dados (Simulação)
+
+Google Earth – Imagens de satélite utilizadas para simular a captura de dados por drones
 
 📌 Status do Projeto
+
 🚀 MVP funcional e publicado
 
 📄 Licença
-Este projeto é apenas para fins educacionais e demonstração técnica.
+
+Este projeto é destinado exclusivamente para fins educacionais e demonstração técnica.
