@@ -1,124 +1,115 @@
-# 🌱 MVP Drone Agro – NDVI com AWS (Serverless)
+🌱 MVP Drone Agro – NDVI Dashboard (Serverless AWS)
 
-Este projeto é um **MVP (Minimum Viable Product)** que simula o uso de **drones no agronegócio** para análise da saúde da vegetação utilizando o índice **NDVI (Normalized Difference Vegetation Index)**, com uma **arquitetura totalmente serverless na AWS**.
+Este projeto é um MVP (Minimum Viable Product) que simula operações de drones no agronegócio utilizando imagens de satélite do Google Earth como fonte de dados, reproduzindo o fluxo de captura, processamento e análise de NDVI (Normalized Difference Vegetation Index) para avaliação da saúde da vegetação.
 
-O objetivo é demonstrar como dados geoespaciais podem ser processados, armazenados e visualizados de forma escalável, segura e com baixo custo.
+A solução foi construída com uma arquitetura 100% serverless na AWS, focada em baixo custo, escalabilidade e validação rápida de conceito, permitindo comprovar valor de negócio antes de investir em hardware físico (drones reais).
 
----
+🎯 Problema
 
-## 🎯 Visão de Negócio
+Produtores rurais precisam de informações rápidas, confiáveis e acionáveis sobre a saúde das lavouras para tomar decisões preventivas e reduzir perdas produtivas.
 
-No agronegócio, decisões rápidas e baseadas em dados reduzem perdas e aumentam a produtividade.
+💡 Solução – MVP Drone Agro
 
-Com este MVP é possível:
-- Identificar áreas com **estresse vegetal**
-- Priorizar ações no campo
-- Validar uma solução antes de investir em hardware (drones reais)
+Um data pipeline simples, escalável e orientado a eventos, que:
 
-Este projeto valida o conceito técnico e de negócio antes da escalabilidade.
+✔ Simula voos de drones a partir de imagens do Google Earth
 
----
+✔ Processa índices de NDVI
 
-## 🛰️ Conceito do MVP
+✔ Classifica a vegetação em:
 
-- Simulação de imagens capturadas por drones usando **Google Earth**
-- Processamento de NDVI
-- Classificação automática da vegetação:
-  - 🌿 Vegetação saudável
-  - ⚠️ Vegetação moderada
-  - 🚨 Vegetação crítica
-- Armazenamento dos resultados na nuvem
-- Exposição dos dados via API
-- Visualização em um dashboard web
+Vegetação saudável
 
----
+Vegetação moderada
 
-## 🏗️ Arquitetura AWS
+Vegetação crítica
 
-### 🔹 Amazon S3
-- Armazenamento dos arquivos processados
-- Organização em camadas (raw / processed)
-- Alta durabilidade e baixo custo
+✔ Armazena os resultados na nuvem
 
-### 🔹 AWS Lambda
-- Funções serverless para:
-  - Processamento NDVI
-  - Consulta do último resultado
-  - Histórico de processamentos
-- Execução sob demanda
+✔ Exibe os dados em um dashboard web público
 
-### 🔹 Amazon API Gateway
-- Exposição de endpoints REST:
-  - `/latest` → Último NDVI processado
-  - `/history` → Histórico de análises
-- Integração direta com Lambda
+🛰️ Por que simular drones?
 
-### 🔹 AWS Amplify
-- Hospedagem do frontend React
-- Deploy contínuo via GitHub
-- HTTPS automático
-- Variáveis de ambiente para API
+Este MVP utiliza imagens de satélite como substituto inicial do hardware de drones, permitindo:
 
----
+Validação da arquitetura
 
-## 🖥️ Frontend
+Testes de fluxo de dados
 
-- Desenvolvido em **React**
-- Dashboard com:
-  - Último processamento NDVI
-  - Histórico de análises
-- Interface simples, clara e focada em dados
+Prova de valor do produto
 
----
+Redução de custos iniciais
 
-## 📊 Funcionalidades
+Aceleração do time-to-market
 
-✔ Processamento automático de NDVI  
-✔ Classificação da vegetação  
-✔ Histórico de análises  
-✔ Dashboard público  
-✔ Arquitetura serverless e escalável  
+Essa abordagem funciona como uma Prova de Conceito (PoC), pronta para evoluir para integração com drones reais no futuro.
 
----
+🏗️ Arquitetura AWS (Serverless)
 
-## 🔮 Próximas Evoluções
+A aplicação foi construída utilizando os seguintes serviços:
 
-- Gráficos de evolução do NDVI
-- Alertas automáticos
-- Integração com Machine Learning
-- Conexão com drones reais
-- Autenticação de usuários
+🪣 Amazon S3
+Armazenamento dos arquivos de entrada e resultados (data lake)
 
----
+⚡ AWS Lambda
+Processamento do NDVI e backend da aplicação
 
-## 🧠 Aprendizados
+🌐 Amazon API Gateway
+Exposição dos endpoints REST consumidos pelo frontend
 
-- Uso prático de arquitetura serverless
-- Integração entre serviços AWS
-- Construção de MVP com foco em valor
-- Cloud aplicada ao agronegócio
+🖥️ AWS Amplify + React
+Frontend, CI/CD automático e hospedagem com HTTPS
 
----
+🌍 Amazon Route 53 + ACM
+Gerenciamento de DNS e certificado SSL
 
-## 🧪 Tecnologias Utilizadas
+📊 Resultado Entregue
 
-- AWS Lambda
-- Amazon S3
-- Amazon API Gateway
-- AWS Amplify
-- React
-- JavaScript
-- Python
-- Google Earth (simulação de imagens)
+✔ Dashboard com último NDVI processado
 
----
+✔ Histórico completo de análises
 
-## 📌 Status do Projeto
+✔ Aplicação pública com domínio próprio
 
-🚀 **MVP funcional e publicado**
+✔ Arquitetura escalável e de baixo custo operacional
 
----
+🔗 Acesse a aplicação:
+👉 https://agro.kraetzig-cloud.com.br
 
-## 📄 Licença
+🔮 Próximos Passos (Evolução do MVP)
 
+📈 Gráficos de evolução do NDVI ao longo do tempo
+
+🚨 Alertas automáticos baseados em limiares críticos
+
+🛰️ Integração com imagens reais de drones
+
+🔐 Autenticação de usuários e ambientes (dev / prod)
+
+🧠 Análises preditivas com Machine Learning
+
+🧑‍💻 Tecnologias Utilizadas
+
+React
+
+Chart.js
+
+AWS Amplify
+
+AWS Lambda
+
+Amazon API Gateway
+
+Amazon S3
+
+Amazon Route 53
+
+AWS Certificate Manager (ACM)
+
+📌 Conceito-chave
+
+📌 Status do Projeto
+🚀 MVP funcional e publicado
+
+📄 Licença
 Este projeto é apenas para fins educacionais e demonstração técnica.
